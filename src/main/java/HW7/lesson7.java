@@ -1,41 +1,23 @@
-package lesson5;
+package HW7;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-
 import java.time.Duration;
 
-public class HW5 {
-    public static WebDriver driver;
-    private final static String MAIN_PAGE_URL = "https://www.igromania.ru/";
-
-    @BeforeAll
-    static void registerDriver(){
+public class lesson7 {
+    public static void main(String[] args) {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--incognito");
-        options.addArguments("--maximized");
-        options.addArguments("user-agent=Googlebot/2.1 (+http://www.google.com/bot.html)");
-    }
+        options.addArguments("--incognito")
+               .addArguments("start-maximized");
+        WebDriver driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
 
-    @Test
-            void Test() throws InterruptedException {
-        autoregistration();
-    }
-
-    @AfterEach
-    void tearDown() {
-        driver.quit();
-    }
-    void autoregistration() {
-        driver.get(MAIN_PAGE_URL);
+        driver.get("https://www.igromania.ru/");
         driver.findElement(By.xpath("/html/body/div[4]/div/div[2]/a/span")).click();
         driver.findElement(By.xpath("//*[@id=\"AUTH_USER_LOGIN\"]")).sendKeys("ZZZZzz789");
         driver.findElement(By.xpath("//*[@id=\"AUTH_USER_PWD\"]")).sendKeys("1234567");
